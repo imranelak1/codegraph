@@ -61,7 +61,7 @@ describe("review regression: analyze() honesty accounting", () => {
   it("records an import into an ignored dir as unresolved (reason: excluded), not resolved", () => {
     const excluded = doc.unresolved.filter((u) => u.reason === "excluded");
     expect(excluded.length).toBe(1);
-    expect(excluded[0]!.from).toBe("src/into-dist.ts");
+    expect(excluded[0]!.from).toBe("src/into-build.ts");
   });
 
   it("the '@lib/*' import resolves to a real edge (precedence fix, end to end)", () => {
