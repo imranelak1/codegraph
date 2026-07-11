@@ -1,0 +1,461 @@
+{
+  "schema": "1",
+  "tool": {
+    "name": "codegraph",
+    "version": "0.1.0"
+  },
+  "root": "C:\\Users\\acer\\codegraph\\fixtures\\sample-project",
+  "generatedAt": "2026-07-11T16:12:11.229Z",
+  "files": [
+    {
+      "id": "src/broken.ts",
+      "path": "src/broken.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 9,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 0,
+      "fanOut": 0,
+      "coverage": null,
+      "grade": "U",
+      "status": "unknown",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/config.ts",
+      "path": "src/config.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 11,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 3,
+      "fanOut": 1,
+      "coverage": 100,
+      "grade": "A",
+      "status": "good",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/db.ts",
+      "path": "src/db.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 11,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 3,
+      "fanOut": 1,
+      "coverage": 66.67,
+      "grade": "C",
+      "status": "warn",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/env.ts",
+      "path": "src/env.ts",
+      "ext": ".ts",
+      "module": "unknown",
+      "loc": 3,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 1,
+      "fanOut": 0,
+      "coverage": 100,
+      "grade": "A",
+      "status": "good",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/index.ts",
+      "path": "src/index.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 9,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 0,
+      "fanOut": 3,
+      "coverage": 100,
+      "grade": "A",
+      "status": "good",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/legacy.cjs",
+      "path": "src/legacy.cjs",
+      "ext": ".cjs",
+      "module": "cjs",
+      "loc": 7,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 0,
+      "fanOut": 1,
+      "coverage": 0,
+      "grade": "E",
+      "status": "crit",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/models/post.ts",
+      "path": "src/models/post.ts",
+      "ext": ".ts",
+      "module": "unknown",
+      "loc": 5,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 1,
+      "fanOut": 0,
+      "coverage": null,
+      "grade": "U",
+      "status": "unknown",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/models/user.ts",
+      "path": "src/models/user.ts",
+      "ext": ".ts",
+      "module": "unknown",
+      "loc": 4,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 1,
+      "fanOut": 0,
+      "coverage": null,
+      "grade": "U",
+      "status": "unknown",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/pool.ts",
+      "path": "src/pool.ts",
+      "ext": ".ts",
+      "module": "unknown",
+      "loc": 8,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 1,
+      "fanOut": 0,
+      "coverage": 75,
+      "grade": "C",
+      "status": "warn",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/routes/index.ts",
+      "path": "src/routes/index.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 2,
+      "isBarrel": true,
+      "isTest": false,
+      "fanIn": 1,
+      "fanOut": 2,
+      "coverage": 0,
+      "grade": "E",
+      "status": "crit",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/routes/posts.ts",
+      "path": "src/routes/posts.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 14,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 1,
+      "fanOut": 2,
+      "coverage": 8.33,
+      "grade": "E",
+      "status": "crit",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/routes/users.ts",
+      "path": "src/routes/users.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 10,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 1,
+      "fanOut": 3,
+      "coverage": 20,
+      "grade": "E",
+      "status": "crit",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/server.ts",
+      "path": "src/server.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 9,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 1,
+      "fanOut": 2,
+      "coverage": 41.67,
+      "grade": "D",
+      "status": "warn",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    },
+    {
+      "id": "src/util/logger.ts",
+      "path": "src/util/logger.ts",
+      "ext": ".ts",
+      "module": "esm",
+      "loc": 7,
+      "isBarrel": false,
+      "isTest": false,
+      "fanIn": 2,
+      "fanOut": 1,
+      "coverage": 80,
+      "grade": "B",
+      "status": "good",
+      "owner": null,
+      "lastChanged": null,
+      "staleDays": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "src/config.ts",
+      "to": "src/env.ts",
+      "specifier": "./env",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 1
+    },
+    {
+      "from": "src/db.ts",
+      "to": "src/pool.ts",
+      "specifier": "./pool",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 2
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/server.ts",
+      "specifier": "./server",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 1
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/routes/index.ts",
+      "specifier": "@app/routes",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 2
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/config.ts",
+      "specifier": "@app/config",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 3
+    },
+    {
+      "from": "src/legacy.cjs",
+      "to": "src/util/logger.ts",
+      "specifier": "./util/logger",
+      "kind": "require",
+      "typeOnly": false,
+      "line": 2
+    },
+    {
+      "from": "src/routes/index.ts",
+      "to": "src/routes/users.ts",
+      "specifier": "./users",
+      "kind": "export-star",
+      "typeOnly": false,
+      "line": 1
+    },
+    {
+      "from": "src/routes/index.ts",
+      "to": "src/routes/posts.ts",
+      "specifier": "./posts",
+      "kind": "export-star",
+      "typeOnly": false,
+      "line": 2
+    },
+    {
+      "from": "src/routes/posts.ts",
+      "to": "src/db.ts",
+      "specifier": "../db",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 1
+    },
+    {
+      "from": "src/routes/posts.ts",
+      "to": "src/models/post.ts",
+      "specifier": "../models/post",
+      "kind": "static",
+      "typeOnly": true,
+      "line": 2
+    },
+    {
+      "from": "src/routes/users.ts",
+      "to": "src/db.ts",
+      "specifier": "../db",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 1
+    },
+    {
+      "from": "src/routes/users.ts",
+      "to": "src/models/user.ts",
+      "specifier": "../models/user",
+      "kind": "static",
+      "typeOnly": true,
+      "line": 2
+    },
+    {
+      "from": "src/routes/users.ts",
+      "to": "src/util/logger.ts",
+      "specifier": "@app/util/logger",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 3
+    },
+    {
+      "from": "src/server.ts",
+      "to": "src/db.ts",
+      "specifier": "@app/db",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 3
+    },
+    {
+      "from": "src/server.ts",
+      "to": "src/config.ts",
+      "specifier": "@app/config",
+      "kind": "static",
+      "typeOnly": true,
+      "line": 4
+    },
+    {
+      "from": "src/util/logger.ts",
+      "to": "src/config.ts",
+      "specifier": "@app/config",
+      "kind": "static",
+      "typeOnly": false,
+      "line": 1
+    }
+  ],
+  "unresolved": [
+    {
+      "from": "src/broken.ts",
+      "specifier": "./does-not-exist",
+      "kind": "static",
+      "reason": "module-not-found",
+      "detail": "relative import './does-not-exist' points at nothing on disk",
+      "line": 5
+    },
+    {
+      "from": "src/broken.ts",
+      "specifier": "@app/security/secret",
+      "kind": "static",
+      "reason": "unmatched-tsconfig-path",
+      "detail": "'@app/security/secret' matched a tsconfig path pattern but no target exists on disk",
+      "line": 8
+    },
+    {
+      "from": "src/broken.ts",
+      "specifier": "./models",
+      "kind": "static",
+      "reason": "extension-miss",
+      "detail": "relative import './models' points at nothing on disk",
+      "line": 11
+    },
+    {
+      "from": "src/routes/posts.ts",
+      "specifier": "<expression>",
+      "kind": "dynamic",
+      "reason": "dynamic-expression",
+      "detail": "import specifier is a runtime expression, not a static string",
+      "line": 10
+    }
+  ],
+  "external": [
+    {
+      "from": "src/db.ts",
+      "specifier": "pg",
+      "kind": "static",
+      "line": 1,
+      "builtin": false
+    },
+    {
+      "from": "src/legacy.cjs",
+      "specifier": "node:path",
+      "kind": "require",
+      "line": 3,
+      "builtin": true
+    },
+    {
+      "from": "src/server.ts",
+      "specifier": "node:http",
+      "kind": "static",
+      "line": 1,
+      "builtin": true
+    },
+    {
+      "from": "src/server.ts",
+      "specifier": "express",
+      "kind": "static",
+      "line": 2,
+      "builtin": false
+    }
+  ],
+  "resolution": {
+    "modules": 14,
+    "internalImports": 20,
+    "resolved": 16,
+    "unresolved": 4,
+    "external": 4,
+    "rate": 0.8
+  },
+  "coverage": {
+    "source": "lcov.info",
+    "filesWithCoverage": 11,
+    "filesWithoutCoverage": 3,
+    "linesCovered": 37,
+    "linesTotal": 75,
+    "lineRate": 0.49333333333333335
+  },
+  "git": null,
+  "warnings": []
+}

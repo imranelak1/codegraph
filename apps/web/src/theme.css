@@ -1,0 +1,103 @@
+/* codeGraph — "the honest instrument" design tokens.
+   Ported from the approved visual identity. Both themes are first-class. */
+
+:root {
+  --bg: #ebeef3;
+  --surface: #ffffff;
+  --surface-2: #f5f8fc;
+  --canvas: #fafbfd;
+  --ink: #14171e;
+  --ink-2: #4c525f;
+  --ink-3: #868d9a;
+  --hairline: #e1e5ec;
+  --hairline-2: #eceff4;
+
+  --accent: #0b76d1;
+  --accent-ink: #0a5fa8;
+  --accent-soft: #e7f1fb;
+  --accent-line: #bedcf4;
+
+  --st-good: #1fa971;
+  --st-warn: #d9930a;
+  --st-crit: #dc3b4b;
+  --good-soft: #e4f5ee;
+  --warn-soft: #fbf0da;
+  --crit-soft: #fbe6e9;
+
+  --ghost: #a9b0bd;
+  --ghost-soft: #eef0f4;
+
+  --shadow: 0 1px 2px rgba(20, 30, 50, 0.04), 0 8px 24px -12px rgba(20, 30, 50, 0.18);
+  --shadow-lg: 0 2px 4px rgba(20, 30, 50, 0.05), 0 24px 60px -24px rgba(20, 30, 50, 0.28);
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Cascadia Mono", "JetBrains Mono", "SF Mono",
+    "Roboto Mono", Consolas, "Liberation Mono", Menlo, monospace;
+
+  --r: 12px;
+  --r-sm: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #090c12;
+    --surface: #141922;
+    --surface-2: #1a202b;
+    --canvas: #0e121a;
+    --ink: #eaedf2;
+    --ink-2: #a4abb8;
+    --ink-3: #6c7382;
+    --hairline: #242b37;
+    --hairline-2: #1b212c;
+    --accent: #3da5f0;
+    --accent-ink: #7fc1f5;
+    --accent-soft: #112537;
+    --accent-line: #234a66;
+    --st-good: #1ea372;
+    --st-warn: #bc7f1a;
+    --st-crit: #e5495f;
+    --good-soft: #0f2c22;
+    --warn-soft: #2c2411;
+    --crit-soft: #331a20;
+    --ghost: #4e5666;
+    --ghost-soft: #1b212c;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -14px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.5), 0 30px 70px -28px rgba(0, 0, 0, 0.8);
+  }
+}
+
+:root[data-theme="light"] {
+  --bg: #ebeef3; --surface: #ffffff; --surface-2: #f5f8fc; --canvas: #fafbfd;
+  --ink: #14171e; --ink-2: #4c525f; --ink-3: #868d9a; --hairline: #e1e5ec; --hairline-2: #eceff4;
+  --accent: #0b76d1; --accent-ink: #0a5fa8; --accent-soft: #e7f1fb; --accent-line: #bedcf4;
+  --st-good: #1fa971; --st-warn: #d9930a; --st-crit: #dc3b4b;
+  --good-soft: #e4f5ee; --warn-soft: #fbf0da; --crit-soft: #fbe6e9;
+  --ghost: #a9b0bd; --ghost-soft: #eef0f4;
+  --shadow: 0 1px 2px rgba(20,30,50,.04), 0 8px 24px -12px rgba(20,30,50,.18);
+  --shadow-lg: 0 2px 4px rgba(20,30,50,.05), 0 24px 60px -24px rgba(20,30,50,.28);
+}
+:root[data-theme="dark"] {
+  --bg: #090c12; --surface: #141922; --surface-2: #1a202b; --canvas: #0e121a;
+  --ink: #eaedf2; --ink-2: #a4abb8; --ink-3: #6c7382; --hairline: #242b37; --hairline-2: #1b212c;
+  --accent: #3da5f0; --accent-ink: #7fc1f5; --accent-soft: #112537; --accent-line: #234a66;
+  --st-good: #1ea372; --st-warn: #bc7f1a; --st-crit: #e5495f;
+  --good-soft: #0f2c22; --warn-soft: #2c2411; --crit-soft: #331a20;
+  --ghost: #4e5666; --ghost-soft: #1b212c;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+  --shadow-lg: 0 2px 6px rgba(0,0,0,.5), 0 30px 70px -28px rgba(0,0,0,.8);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto; }
+}
