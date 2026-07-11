@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, type FormEvent } from "react";
 import {
   buildIndex,
   blastStats,
@@ -19,39 +19,130 @@ const STATUS_LABEL: Record<HealthStatus, string> = {
 };
 
 export default function App() {
-  const state = useDocument();
+  const initial = useDocument();
   const [theme, setTheme] = useState<"light" | "dark" | null>(null);
+  const [override, setOverride] = useState<{ doc: CodeGraphDocument; source: string } | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [analyzeError, setAnalyzeError] = useState<string | null>(null);
 
   useEffect(() => {
     if (theme) document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  if (state.status === "loading") {
-    return (
-      <div className="center-state">
-        <div className="box">
-          <h2>Reading the graph…</h2>
-          <p className="mono">loading the document</p>
-        </div>
-      </div>
-    );
+  // Run the real Node analyzer via the dev server and render the result.
+  async function analyzeRepo(root: string, coverage: string): Promise<void> {
+    const path = root.trim();
+    if (!path) return;
+    setAnalyzing(true);
+    setAnalyzeError(null);
+    try {
+      const q = new URLSearchParams({ root: path });
+      if (coverage.trim()) q.set("coverage", coverage.trim());
+      const res = await fetch(`/api/analyze?${q.toString()}`);
+      if (!res.ok) {
+        throw new Error(
+          res.status === 404
+            ? "Live analysis needs the dev server (run: npm run web)."
+            : `Analyzer returned HTTP ${res.status}.`,
+        );
+      }
+      const doc = (await res.json()) as CodeGraphDocument & { error?: string };
+      if (doc.error) throw new Error(doc.error);
+      if (!Array.isArray(doc.files)) throw new Error("Unexpected response — not a codeGraph document.");
+      setOverride({ doc, source: shortenPath(path) });
+    } catch (e) {
+      setAnalyzeError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setAnalyzing(false);
+    }
   }
-  if (state.status === "error") {
+
+  const active =
+    override ?? (initial.status === "ready" ? { doc: initial.doc, source: initial.source } : null);
+
+  if (!active) {
+    if (initial.status === "loading") {
+      return (
+        <div className="center-state">
+          <div className="box">
+            <h2>Reading the graph…</h2>
+            <p className="mono">loading the document</p>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="center-state">
         <div className="box">
-          <h2>No document yet</h2>
+          <h2>Analyze a repository</h2>
           <p>
-            {state.message.split("npm run")[0]}
-            <br />
-            <code>npm run analyze:sample</code>
+            Point codeGraph at a local repo, or generate the bundled sample with{" "}
+            <code>npm run analyze:sample</code>.
           </p>
+          <RepoForm onAnalyze={analyzeRepo} analyzing={analyzing} error={analyzeError} large />
         </div>
       </div>
     );
   }
 
-  return <Explorer doc={state.doc} source={state.source} theme={theme} setTheme={setTheme} />;
+  return (
+    <Explorer
+      doc={active.doc}
+      source={active.source}
+      theme={theme}
+      setTheme={setTheme}
+      onAnalyze={analyzeRepo}
+      analyzing={analyzing}
+      analyzeError={analyzeError}
+    />
+  );
+}
+
+function RepoForm({
+  onAnalyze,
+  analyzing,
+  error,
+  large = false,
+}: {
+  onAnalyze: (root: string, coverage: string) => void;
+  analyzing: boolean;
+  error: string | null;
+  large?: boolean;
+}) {
+  const [root, setRoot] = useState("");
+  const [cov, setCov] = useState("");
+  const submit = (e: FormEvent): void => {
+    e.preventDefault();
+    onAnalyze(root, cov);
+  };
+  return (
+    <form className={"repo-form" + (large ? " repo-form-lg" : "")} onSubmit={submit}>
+      <input
+        className="repo-input"
+        placeholder={"path to a repo, e.g. C:\\code\\my-app"}
+        value={root}
+        spellCheck={false}
+        autoCapitalize="off"
+        autoCorrect="off"
+        onChange={(e) => setRoot(e.target.value)}
+      />
+      <input
+        className="repo-input repo-cov"
+        placeholder="lcov.info (optional)"
+        value={cov}
+        spellCheck={false}
+        onChange={(e) => setCov(e.target.value)}
+      />
+      <button className="repo-btn" type="submit" disabled={analyzing || root.trim().length === 0}>
+        {analyzing ? "Analyzing…" : "Analyze"}
+      </button>
+      {error && (
+        <span className="repo-error" title={error}>
+          ⚠ {error}
+        </span>
+      )}
+    </form>
+  );
 }
 
 function Explorer({
@@ -59,11 +150,17 @@ function Explorer({
   source,
   theme,
   setTheme,
+  onAnalyze,
+  analyzing,
+  analyzeError,
 }: {
   doc: CodeGraphDocument;
   source: string;
   theme: "light" | "dark" | null;
   setTheme: (t: "light" | "dark") => void;
+  onAnalyze: (root: string, coverage: string) => void;
+  analyzing: boolean;
+  analyzeError: string | null;
 }) {
   const index = useMemo(() => buildIndex(doc), [doc]);
 
@@ -126,6 +223,12 @@ function Explorer({
           </button>
         </div>
       </header>
+
+      <div className="app-toolbar">
+        <span className="tb-label">Analyze a repo</span>
+        <RepoForm onAnalyze={onAnalyze} analyzing={analyzing} error={analyzeError} />
+        <span className="tb-hint mono">runs the Node analyzer live · git &amp; coverage included</span>
+      </div>
 
       <div className="app-body">
         <aside className="rail">
@@ -369,4 +472,8 @@ function initials(name: string): string {
     .slice(0, 2)
     .map((p) => p[0]?.toUpperCase() ?? "")
     .join("");
+}
+function shortenPath(p: string): string {
+  const parts = p.replace(/[\\/]+$/, "").split(/[\\/]/).filter(Boolean);
+  return parts.length <= 2 ? p : "…/" + parts.slice(-2).join("/");
 }
