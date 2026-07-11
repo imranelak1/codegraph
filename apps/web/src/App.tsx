@@ -39,11 +39,12 @@ export default function App() {
       const q = new URLSearchParams({ root: path });
       if (coverage.trim()) q.set("coverage", coverage.trim());
       const res = await fetch(`/api/analyze?${q.toString()}`);
-      if (!res.ok) {
+      const ctype = res.headers.get("content-type") ?? "";
+      if (!res.ok || !ctype.includes("application/json")) {
+        // A static production build has no Node analyzer to call — the request
+        // 404s or the SPA shell answers with HTML. Say so plainly; never pretend.
         throw new Error(
-          res.status === 404
-            ? "Live analysis needs the dev server (run: npm run web)."
-            : `Analyzer returned HTTP ${res.status}.`,
+          "Live analysis needs the dev server — run `npm run web`. This static build can't run the Node analyzer (use the CLI to generate a document instead).",
         );
       }
       const doc = (await res.json()) as CodeGraphDocument & { error?: string };
