@@ -1,0 +1,29 @@
+name: codeGraph
+
+# Dogfood: run codeGraph's own Action against its own source on every change.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  graph:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Analyze source
+        id: cg
+        uses: ./
+        with:
+          path: src
+          # Our own source should resolve cleanly; fail the check if it regresses.
+          min-resolution: "95"
+      - name: Show result
+        run: |
+          echo "modules:    ${{ steps.cg.outputs.modules }}"
+          echo "resolution: ${{ steps.cg.outputs.resolution-rate }}%"
+          echo "unresolved: ${{ steps.cg.outputs.unresolved }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: codegraph-document
+          path: ${{ steps.cg.outputs.document }}

@@ -1,0 +1,62 @@
+name: "codeGraph"
+description: "An honest dependency graph for TypeScript/JavaScript — blast radius and coverage, with the real resolution rate."
+author: "codeGraph"
+branding:
+  icon: "share-2"
+  color: "blue"
+
+inputs:
+  path:
+    description: "Directory to analyze."
+    required: false
+    default: "."
+  coverage:
+    description: "Path to an lcov.info file to ingest (optional)."
+    required: false
+    default: ""
+  out:
+    description: "Where to write the JSON document."
+    required: false
+    default: "codegraph.json"
+  min-resolution:
+    description: "Fail the check if the resolution rate (percent) is below this value."
+    required: false
+    default: ""
+
+outputs:
+  modules:
+    description: "Number of modules analyzed."
+    value: ${{ steps.codegraph.outputs.modules }}
+  resolution-rate:
+    description: "Percent of internal imports resolved."
+    value: ${{ steps.codegraph.outputs.resolution-rate }}
+  resolved:
+    description: "Count of resolved internal imports."
+    value: ${{ steps.codegraph.outputs.resolved }}
+  unresolved:
+    description: "Count of unresolved internal imports."
+    value: ${{ steps.codegraph.outputs.unresolved }}
+  document:
+    description: "Path to the emitted JSON document."
+    value: ${{ steps.codegraph.outputs.document }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+    - name: Build codeGraph
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm ci --ignore-scripts && npm run build
+    - name: Analyze
+      id: codegraph
+      shell: bash
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_COVERAGE: ${{ inputs.coverage }}
+        INPUT_OUT: ${{ inputs.out }}
+        INPUT_MIN_RESOLUTION: ${{ inputs.min-resolution }}
+      run: node "${{ github.action_path }}/dist/action/run.js"
