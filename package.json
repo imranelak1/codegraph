@@ -1,0 +1,46 @@
+{
+  "name": "codegraph",
+  "version": "0.1.0",
+  "description": "Turn a TypeScript/JavaScript codebase into an honest dependency graph — and see what a change puts at risk.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "codegraph": "dist/cli/main.js"
+  },
+  "engines": {
+    "node": ">=18.18"
+  },
+  "files": [
+    "dist",
+    "action.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cli": "tsx src/cli/main.ts",
+    "analyze:self": "tsx src/cli/main.ts . --out codegraph.json",
+    "analyze:sample": "tsx src/cli/main.ts fixtures/sample-project --coverage fixtures/sample-project/lcov.info --out apps/web/public/codegraph.json --pretty",
+    "web": "vite",
+    "web:build": "vite build",
+    "check": "npm run typecheck && npm run test"
+  },
+  "dependencies": {
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.5"
+  }
+}

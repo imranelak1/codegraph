@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.tsbuildinfo
+coverage/
+.DS_Store
+apps/web/dist/
+# generated demo document (regenerate with: npm run analyze:sample)
+apps/web/public/codegraph.json
+# but keep a committed snapshot so the web demo runs offline:
+!apps/web/public/codegraph.sample.json
+.vite/
+*.log
