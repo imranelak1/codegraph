@@ -16,6 +16,7 @@ import { version as VERSION } from "../analyzer/meta";
 import { buildIndex, blastStats } from "../core/graph";
 import type { CodeGraphDocument, UnresolvedReason } from "../core/types";
 import { color, pct, bar, table } from "./format";
+import { serve } from "./serve";
 
 interface Cli {
   root: string;
@@ -104,14 +105,61 @@ OPTIONS
   -h, --help                show this help
   -v, --version             print version
 
+COMMANDS
+  codegraph serve [root]    open the local app (UI + live analyzer) in the browser
+
 EXAMPLES
   codegraph .                          summarise the current project
   codegraph src --coverage lcov.info   include coverage & health
   codegraph . --blast src/core/types.ts
-  codegraph . --out codegraph.json --pretty`;
+  codegraph . --out codegraph.json --pretty
+  codegraph serve .                    run the app locally on this repo`;
+
+const SERVE_HELP = `codegraph serve [root] [options] — the local app (UI + live analyzer)
+
+OPTIONS
+      --port <n>        port to listen on (default 4300)
+  -c, --coverage <lcov> ingest an lcov.info for the initial view
+      --no-git          skip git history
+      --no-open         don't open the browser automatically
+  -h, --help            show this help`;
+
+function runServe(argv: string[]): void {
+  let root = ".";
+  let port = 4300;
+  let coverage: string | null = null;
+  let open = true;
+  let git = true;
+  let sawRoot = false;
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i]!;
+    if (a === "-h" || a === "--help") {
+      console.log(SERVE_HELP);
+      return;
+    } else if (a === "--port") {
+      port = Number(argv[++i]) || port;
+    } else if (a === "--coverage" || a === "-c") {
+      coverage = argv[++i] ?? null;
+    } else if (a === "--no-git") {
+      git = false;
+    } else if (a === "--no-open") {
+      open = false;
+    } else if (!a.startsWith("-") && !sawRoot) {
+      root = a;
+      sawRoot = true;
+    }
+  }
+  serve({ root, port, coverage, open, git });
+}
 
 function main(): void {
-  const parsed = parseArgs(process.argv.slice(2));
+  const argv = process.argv.slice(2);
+  if (argv[0] === "serve") {
+    runServe(argv.slice(1));
+    return;
+  }
+
+  const parsed = parseArgs(argv);
   if ("help" in parsed) {
     console.log(HELP);
     return;

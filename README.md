@@ -59,15 +59,27 @@ statically known. codeGraph shows them rather than rounding up.
 
 ---
 
-## The web app
+## The app — run it locally on your own repo
+
+One command builds the UI and serves it together with the real analyzer, then opens your
+browser. Full features (git ownership, coverage, live re-analysis) — no separate dev server,
+nothing degraded:
 
 ```bash
-npm run analyze:sample   # generate apps/web/public/codegraph.sample.json
-npm run web              # Vite dev server — interactive graph, blast radius, coverage
+npm run app                      # build the UI + serve this repo, open the browser
+# or point it at any repo:
+npm run serve -- C:\code\my-app
+# once installed globally:
+codegraph serve C:\code\my-app --coverage coverage\lcov.info
 ```
 
-The web app imports `@core` (the same types + graph algorithms the CLI and Action use) and
-renders the JSON document. In dev, `GET /api/analyze?root=…` runs the real analyzer live.
+`codegraph serve` runs one Node process that:
+- serves the built web UI,
+- exposes `GET /api/analyze?root=…` — the same analyzer the CLI and Action use,
+- loads the repo you pointed it at on open, and lets the **Analyze a repo** bar re-point it live.
+
+The web UI imports `@core` (the same types + graph algorithms) and renders the one JSON
+document. For UI development, `npm run web` runs the Vite dev server with hot reload.
 
 - Nodes are colored by **file health** (coverage); size is **fan-in**.
 - Click a node to trace its **blast radius**; the dependency chain highlights.
